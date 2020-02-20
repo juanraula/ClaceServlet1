@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <title>TODO supply a title</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+    <body>
+        <div>Iniciar Sesion</div>
+
+
+        <input type="text" id="user" name="usuario" placeholder="usuario"/>
+        <input type="password" id="pass" name="clave" placeholder="clave"/>
+        <button onclick="logear()">Login</button>
+        <button onclick="Consultar()">Consultar</button>
+        
+        
+        <div id="rpt"></div>
+
+
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+        <script type="text/javascript">
+            function Consultar() {
+                $.ajax({
+
+                    method: 'POST',
+                    url: 'Consulta',
+                 
+                    success: function (msg) {
+                        console.log(msg);
+                        
+                    },
+                    error: function (msg) {
+                        console.error(msg);
+                    }
+                });
+            }
+            function logear() {
+                var usuario = document.getElementById("user").value;
+                var clave = document.getElementById("pass").value;
+                console.log('haciendo el login...' + usuario + ' clave: ' + clave);
+                $.ajax({
+
+                    method: 'POST',
+                    url: 'MiServlet',
+                    data: {
+                        usuario: usuario,
+                        clave: clave
+                    },
+                    success: function (msg) {
+                        console.log(msg);
+                        document.getElementById('rpt').innerHTML=msg.msg;
+                    },
+                    error: function (msg) {
+                        console.error(msg);
+                    }
+                });
+            }
+
+        </script>
+
+
+    </body>
+</html>
